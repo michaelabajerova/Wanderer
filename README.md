@@ -16,9 +16,14 @@ the monsters holding the keys to the next level.
 #### How to launch the program
 
 - We will use our [FoxDraw.cs](FoxDraw.cs) class in the following examples
+
   - But you can write your own until the end of the week! :)
-- When reading through the specification and the stories again keep this in mind.
+
+- When reading through the specification and the stories
+  again keep this in mind.
+
 - Here's an example, it contains
+
   - a big drawable canvas
   - and handling pressing keys, for moving your hero around
   - be aware that these are just all the needed concepts put in one place
@@ -26,6 +31,7 @@ the monsters holding the keys to the next level.
   - `RPGGame` is the namespace in the following example
 
   ```xml
+
   <Window x:Class="RPGGame.MainWindow"
           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -41,6 +47,7 @@ the monsters holding the keys to the next level.
   ```
 
   ```csharp
+
   public partial class MainWindow : Window
   {
       public MainWindow()
@@ -65,8 +72,11 @@ the monsters holding the keys to the next level.
   ```
 
   - You can add images with FoxDraw like this:
+
     - `foxDraw.AddImage(imagesource, x, y);`
+
   - Steps of adding an Image to your project:
+
     - Add an `Assets` folder to your project
     - Insert image files in it
     - Set the `Copy to OutPut Directory` property of the image to `Copy Always`
@@ -83,32 +93,46 @@ the monsters holding the keys to the next level.
   }
   ```
 
-### 3. Create a GitHub project under your repository for your work and add the [project stories](https://github.com/greenfox-academy/teaching-materials/blob/master/project/wanderer/stories.md).
+### 3. Create a GitHub project under your repository
 
-### 4. Form groups and plan your application together.
+- create it under your repository for your work and add the [project stories](https://github.com/greenfox-academy/teaching-materials/blob/master/project/wanderer/stories.md).
 
-Plan your architecture. In your architecture you should consider the following components:
+### 4. Form groups and plan your application together
+
+Plan your architecture. In your architecture you 
+should consider the following components:
 
 - Models
-    - GameObject
-        - Character
-            - Monster
-            - Hero
-            - types
-        - Area
-        - Tile
-            - EmptyTile
-            - NotEmptyTile
+
+  - GameObject
+
+    - Character
+
+      - Monster
+      - Hero
+      - types
+
+    - Area
+
+      - Tile
+
+        - EmptyTile
+        - NotEmptyTile
+
 - GameLogic
-    - current hero
-    - current area
+
+  - current hero
+  - current area
+
 - Main
-    - handling events
-    - current game
+
+  - handling events
+  - current game
 
 #### 5. Think about task breakdown in Kanban together
 
-Now that you see the big picture, **go through the stories together** and think about how to break them down into tasks:
+Now that you see the big picture, **go through the stories together**
+and think about how to break them down into tasks:
 
 - To classes
 - To methods
