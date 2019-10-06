@@ -48,7 +48,7 @@ the monsters holding the keys to the next level.
   }
   ```
 
-  - You can add images with FoxDraw like this:
+  - You can add images with Avalonia like this:
 
     ```csharp
     var image = new Avalonia.Controls.Image();
