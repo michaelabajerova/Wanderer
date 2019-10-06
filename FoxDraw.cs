@@ -1,38 +1,41 @@
-using System;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
+using Avalonia.Media;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Linq;
 
 namespace GreenFox
 {
     public class FoxDraw
     {
-        private const int TILEWIDTH = 50;
-        private const int TILEHEIGHT = 50;
-
         private Canvas Canvas { get; set; }
-        private SolidColorBrush LineColor { get; set; } = SystemColors.WindowFrameBrush;
+        private SolidColorBrush LineColor { get; set; } = new SolidColorBrush(Colors.Black);
         private SolidColorBrush ShapeColor { get; set; } = new SolidColorBrush(Colors.DarkGreen);
+
+        private int StrokeThickness { get; set; } = 1;
 
         public FoxDraw(Canvas canvas)
         {
             Canvas = canvas;
         }
 
-        public void BackgroundColor(Color color)
+        public void SetBackgroundColor(Color color)
         {
             Canvas.Background = new SolidColorBrush(color);
         }
 
-        public void StrokeColor(Color color)
+        public void SetStrokeThicknes(int thickness)
+        {
+            StrokeThickness = thickness;
+        }
+
+        public void SetStrokeColor(Color color)
         {
             LineColor = new SolidColorBrush(color);
         }
 
-        public void FillColor(Color color)
+        public void SetFillColor(Color color)
         {
             ShapeColor = new SolidColorBrush(color);
         }
@@ -42,6 +45,7 @@ namespace GreenFox
             var ellipse = new Ellipse()
             {
                 Stroke = LineColor,
+                StrokeThickness = StrokeThickness,
                 Fill = ShapeColor,
                 Width = width,
                 Height = height
@@ -51,15 +55,14 @@ namespace GreenFox
             SetPosition(ellipse, x, y);
         }
 
-        public void DrawLine(Point p1, Point p2)
+        public void DrawLine(Point start, Point end)
         {
             var line = new Line()
             {
                 Stroke = LineColor,
-                X1 = p1.X,
-                Y1 = p1.Y,
-                X2 = p2.X,
-                Y2 = p2.Y
+                StrokeThickness = StrokeThickness,
+                StartPoint = start,
+                EndPoint = end
             };
 
             Canvas.Children.Add(line);
@@ -67,16 +70,7 @@ namespace GreenFox
 
         public void DrawLine(double x1, double y1, double x2, double y2)
         {
-            var line = new Line()
-            {
-                Stroke = LineColor,
-                X1 = x1,
-                Y1 = y1,
-                X2 = x2,
-                Y2 = y2
-            };
-
-            Canvas.Children.Add(line);
+            DrawLine(new Point(x1, y1), new Point(x2, y2));
         }
 
         public void DrawPolygon(IEnumerable<Point> points)
@@ -84,8 +78,9 @@ namespace GreenFox
             var polygon = new Polygon()
             {
                 Stroke = LineColor,
+                StrokeThickness = StrokeThickness,
                 Fill = ShapeColor,
-                Points = ListToPointCollection(points)
+                Points = points.ToList()
             };
 
             Canvas.Children.Add(polygon);
@@ -96,6 +91,7 @@ namespace GreenFox
             var rectangle = new Rectangle()
             {
                 Stroke = LineColor,
+                StrokeThickness = StrokeThickness,
                 Fill = ShapeColor,
                 Width = width,
                 Height = height
@@ -105,41 +101,16 @@ namespace GreenFox
             SetPosition(rectangle, x, y);
         }
 
-        public void AddImage(string source, double x, double y)
+        public void AddImage(Image image, double x, double y)
         {
-            var image = new Image()
-            {
-                Width = TILEWIDTH,
-                Height = TILEHEIGHT,
-                Source = new BitmapImage(new Uri(source, UriKind.Relative))
-            };
-
             Canvas.Children.Add(image);
             SetPosition(image, x, y);
         }
 
-        public void AddImage(Canvas canvas, double x, double y)
+        public void SetPosition(AvaloniaObject shape, double x, double y)
         {
-            Canvas.Children.Add(canvas);
-            SetPosition(canvas, x, y);
-        }
-
-        public void SetPosition(UIElement uIElement, double x, double y)
-        {
-            Canvas.SetLeft(uIElement, x);
-            Canvas.SetTop(uIElement, y);
-        }
-
-        public PointCollection ListToPointCollection(IEnumerable<Point> points)
-        {
-            var pointCollection = new PointCollection();
-
-            foreach (var point in points)
-            {
-                pointCollection.Add(point);
-            }
-
-            return pointCollection;
+            Canvas.SetLeft(shape, x);
+            Canvas.SetTop(shape, y);
         }
     }
 }
