@@ -51,8 +51,9 @@ the monsters holding the keys to the next level.
   - You can add images with FoxDraw like this:
 
     ```csharp
-            image.Source = new Avalonia.Media.Imaging.Bitmap(@"../floor.png");
-            canvas.Children.Add(image);
+    var image = new Avalonia.Controls.Image();
+    image.Source = new Avalonia.Media.Imaging.Bitmap(@"../floor.png");
+    canvas.Children.Add(image);
     ```
 
   - Steps of adding an Image to your project:
