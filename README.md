@@ -36,6 +36,7 @@ the monsters holding the keys to the next level.
       public MainWindow()
       {
           InitializeComponent();
+          var canvas = this.Get<Canvas>("canvas");
           var foxDraw = new FoxDraw(canvas);
           
           this.KeyUp += MainWindow_KeyUp;
